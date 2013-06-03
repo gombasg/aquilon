@@ -19,8 +19,11 @@
 '''Script generating bash completion code from input.xml.
 '''
 
-import ms.version
-ms.version.addpkg('Cheetah', '2.4.4')
+try:
+    import ms.version
+    ms.version.addpkg('Cheetah', '2.4.4')
+except ImportError:
+    pass
 
 import os
 import sys

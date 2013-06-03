@@ -16,10 +16,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import ms.version
+try:
+    import ms.version
 
-ms.version.addpkg('lxml', '3.2.5')
-ms.version.addpkg('argparse', '1.2.1')
+    ms.version.addpkg('lxml', '3.2.5')
+    ms.version.addpkg('argparse', '1.2.1')
+except ImportError:
+    pass
 
 import os
 import sys
