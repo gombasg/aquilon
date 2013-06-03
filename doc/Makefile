@@ -1,17 +1,17 @@
 DOCBOOK_VERSION = 5.0
-DOCBOOK_XSL_VERSION = 1.77.1
-LIBXSLT_VERSION = 1.1.26-2.7.8-z1.2a
-LIBXML_VERSION = 2.7.8
+#DOCBOOK_XSL_VERSION =
+#LIBXSLT_VERSION =
+#LIBXML_VERSION =
 
-DOCBOOK = /ms/dist/fsf/PROJ/docbook/$(DOCBOOK_VERSION)
-DOCBOOK_XSL = /ms/dist/fsf/PROJ/docbook-xsl-ns/$(DOCBOOK_XSL_VERSION)/common
+DOCBOOK = /usr/share/xml/docbook/schema
+DOCBOOK_XSL = /usr/share/xml/docbook/stylesheet/docbook-xsl-ns
 
-XSLTPROC = /ms/dist/gnome/PROJ/libxslt/$(LIBXSLT_VERSION)/exec/bin/xsltproc
+XSLTPROC = xsltproc
 XSLT_PARAMS = --xinclude --nonet --catalogs
 
-XMLLINT = /ms/dist/gnome/PROJ/libxml/$(LIBXML_VERSION)/exec/bin/xmllint
+XMLLINT = xmllint
 # For DocBook 5, the normative description is the Relax NG schema
-XMLLINT_PARAMS = --xinclude --nonet --catalogs --noout --relaxng $(DOCBOOK)/rng/docbook.rng
+XMLLINT_PARAMS = --xinclude --nonet --catalogs --noout --relaxng $(DOCBOOK)/rng/$(DOCBOOK_VERSION)/docbook.rng
 
 # Used by xsltproc & xmllint to convert URIs to file names
 SGML_CATALOG_FILES = $(DOCBOOK)/catalog.xml

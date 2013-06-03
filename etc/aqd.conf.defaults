@@ -145,11 +145,11 @@ keytab = /var/spool/keytabs/%(service)s
 installfe_user = %(user)s
 server_notifications =
 client_notifications = yes
-sharedata = /ms/dist/storage/etc/nasobjects.cdb
+#sharedata =
 default_domain_start = prod
 trash_branch = trash
 authorization_error = Please contact an administrator for access.
-windows_host_info = /ms/dist/aquilon/PROJ/datawarehouse/dumpv3/machines.db
+#windows_host_info =
 # See comments in aquilon.worker.resources.set_thread_pool_size
 twisted_thread_pool_size = 100
 # The knc daemon can be run by the broker for development purposes.
@@ -163,9 +163,9 @@ max_audit_rows = 20000
 # with aii-shellfe.
 poll_helper_service = poll_helper
 poll_ssh_options = -o StrictHostKeyChecking=no -o BatchMode=yes
-grn_to_eonid_map_location = /ms/dist/appmw/PROJ/eon-data/prod/common
+#grn_to_eonid_map_location =
 run_aqnotifyd = True
-user_list_location = /ms/dist/aurora/PROJ/dsdbfiles/incr/passwd.byname
+#user_list_location =
 
 # Limit of hostlists
 default_max_list_size = 1000
@@ -181,23 +181,23 @@ user_delete_limit = 1000
 default_network_type = unknown
 
 [tool_locations]
-dsdb = /ms/dist/aurora/PROJ/dsdb/5.0prod/bin/dsdb
-ssh = /ms/dist/sec/PROJ/openssh/prod/bin/ssh
-switch_discover = /ms/dist/aquilon/PROJ/switch-discover/prod/bin/switch-discover
-get_camtable = /ms/dist/aquilon/PROJ/switch-discover/prod/bin/get-camtable
-git = /ms/dist/fsf/PROJ/git/1.8.1/bin/git
-git_daemon = /ms/dist/fsf/PROJ/git/1.8.1/libexec/git-core/git-daemon
-aii_installfe = /ms/dist/elfms/PROJ/aii/prod/sbin/aii-installfe
-vlan2net = /ms/dist/aquilon/PROJ/vlan2net/prod/bin/vlan2net
-mean = /ms/dist/storage/PROJ/infra/prod/bin/mean
-qip_dump_subnetdata = /ms/dist/3rd/qip/usr/sbin/qip-dump-subnetdata
-knc = /ms/dist/kerberos/PROJ/knc/prod/bin/knc
-krb5_keytab = /ms/dist/kerberos/PROJ/krb5_keytab/prod/sbin/krb5_keytab
-klist = /ms/dist/aurora/bin/klist
+dsdb = /bin/true
+#ssh =
+#switch_discover =
+#get_camtable =
+#git =
+git_daemon = /usr/lib/git-core/git-daemon
+#aii_installfe =
+#vlan2net =
+mean = /bin/true
+#qip_dump_subnetdata =
+#knc =
+krb5_keytab = /usr/sbin/krb5_keytab
+#klist =
 
-java_home = /ms/dist/msjava/PROJ/oraclejdk/1.7.0_40
-ant_home = /ms/dist/ossjava/PROJ/ant/1.9.3
-ant_contrib_jar = /ms/dist/ossjava/PROJ/ant-contrib/1.0b3/common/lib/ant-contrib.jar
+java_home = /usr/lib/jvm/java-7-openjdk-amd64
+ant_home = /usr/share/ant
+ant_contrib_jar = /usr/share/ant/lib/ant-contrib.jar
 ant = %(ant_home)s/bin/ant
 
 [hardware_network_device]
@@ -295,7 +295,7 @@ default_version = prod
 version = %(default_version)s
 # The update_domain command expects to be able to read this value
 # in raw mode and set the version variable itself.
-pan_compiler = /ms/dist/elfms/PROJ/panc/%(version)s/lib/panc.jar
+pan_compiler = /home/gombasg/src/quattor/panc/panc-%(version)s.jar
 # Number of templates to cache in memory during compiles
 batch_size = 1000
 # Option passed to panc the output format that it uses
@@ -324,4 +324,4 @@ sqlalchemy.orm    = WARNING
 aquilon = INFO
 
 [protocols]
-directory = /ms/dist/aquilon/PROJ/protocols/1.20/common/lib/python
+directory = /tmp/proto/lib/python
