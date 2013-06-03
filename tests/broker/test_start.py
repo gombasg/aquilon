@@ -27,6 +27,7 @@ if __name__ == "__main__":
     import utils
     utils.import_depends()
 
+from six.moves.configparser import NoOptionError  # pylint: disable=F0401
 import unittest2 as unittest
 from aquilon.config import Config
 
@@ -93,7 +94,11 @@ class TestBrokerStart(unittest.TestCase):
         # running '%s -bn aqd --config %s'%(aqd, self.config.baseconfig)
 
     def testclonetemplateking(self):
-        source = self.config.get("unittest", "template_base")
+        try:
+            source = self.config.get("unittest", "template_base")
+        except NoOptionError:
+            source = ""
+
         if not source:
             source = os.path.join(self.config.get("broker", "srcdir"),
                                   "tests/templates")
@@ -144,7 +149,14 @@ class TestBrokerStart(unittest.TestCase):
                          env=env, cwd=dest)
 
     def testcloneswrep(self):
-        source = self.config.get("unittest", "swrep_repository")
+        try:
+            source = self.config.get("unittest", "swrep_repository")
+        except NoOptionError:
+            source = ""
+
+        if not source:
+            return
+
         dest = os.path.join(self.config.get("broker", "swrepdir"), "repository")
         rmtree(dest, ignore_errors=True)
 

@@ -26,7 +26,7 @@ mean = %(srcdir)s/tests/fakebin/fake_mean
 
 [panc]
 version = beta
-pan_compiler = /ms/dist/elfms/PROJ/panc/%(version)s/lib/panc.jar
+pan_compiler = /home/gombasg/src/quattor/panc/panc-%(version)s.jar
 
 
 [unittest]
