@@ -46,6 +46,7 @@ from aquilon.client import depends  # pylint: disable=W0611
 from aquilon.config import lookup_file_path
 from aquilon.exceptions_ import AquilonError
 from aquilon.client.knchttp import KNCHTTPConnection
+from aquilon.client.gsshttp import GSSHTTPConnection
 from aquilon.client.chunked import ChunkedHTTPConnection
 from aquilon.client.optparser import OptParser, ParsingError
 from aquilon.python_patches import load_uuid_quickly
@@ -265,7 +266,7 @@ class StatusThread(Thread):
         # only know the port that's been specified for this command -
         # so it's either the auth port or it's not.
         if self.authuser:
-            sconn = KNCHTTPConnection(self.host, self.port, self.authuser)
+            sconn = GSSHTTPConnection(self.host, self.port, self.authuser)
         else:
             sconn = ChunkedHTTPConnection(self.host, self.port)
         parameters = ""
@@ -436,7 +437,7 @@ if __name__ == "__main__":
     authuser = globalOptions.get('auth') and aqservice or None
     # create HTTP connection object adhering to the command line request
     if authuser:
-        conn = KNCHTTPConnection(host, port, authuser)
+        conn = GSSHTTPConnection(host, port, authuser)
     else:
         conn = ChunkedHTTPConnection(host, port)
 
