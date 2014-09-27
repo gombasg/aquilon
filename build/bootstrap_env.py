@@ -16,10 +16,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import print_function
+
 import os
 import virtualenv
 import textwrap
 import re
+
+# Dependencies we won't install into the virtual environment, either because
+# they are not needed, or because they depend on native code that Python can't
+# build itself
+blacklist = ["protobuf", "cx_Oracle"]
 
 
 def gather_deps(dir):
@@ -45,28 +52,37 @@ def gather_deps(dir):
 
 def bootstrap(dependencies, dir):
     extra = textwrap.dedent("""
-    import os, subprocess
-    from tempfile import mkdtemp
-    def extend_parser(optparse_parser):
-        pass
-    def adjust_options(options, args):
-        pass
-    def after_install(options, home_dir):
-        easy_install = join(home_dir, 'bin', 'easy_install')
+        import os, subprocess
+        from tempfile import mkdtemp
+        def extend_parser(optparse_parser):
+            pass
+        def adjust_options(options, args):
+            pass
+        def after_install(options, home_dir):
+            easy_install = join(home_dir, 'bin', 'easy_install')
     """)
-    for package in sorted(dependencies):
-        if package == 'protobuf':
+
+    for package in sorted(dependencies.keys()):
+        if package in blacklist:
             continue
-        extra += "    if subprocess.call([easy_install, '%s==%s']) != 0:\n" % (
-            package, dependencies[package])
-        extra += "        subprocess.call([easy_install, '%s'])\n" % package
-    extra += "    subprocess.call([easy_install, '.'], cwd='%s')\n" % (
+        extra += """
+    if subprocess.call([easy_install, '%(package)s==%(deps)s']) == 0:
+        pass
+    elif subprocess.call([easy_install, 'python-%(package)s==%(deps)s']) == 0:
+        pass
+    elif subprocess.call([easy_install, '%(package)s']) == 0:
+        pass
+    else:
+        subprocess.call([easy_install, 'python-%(package)s'])
+        """ % {'package': package, 'deps': dependencies[package]}
+
+    extra += "\n    subprocess.call([easy_install, '.'], cwd='%s')\n" % (
         os.path.join(dir, 'bootstrap_ms'))
-    print virtualenv.create_bootstrap_script(extra)
+    print(virtualenv.create_bootstrap_script(extra))
 
 
 if __name__ == '__main__':
     dir = os.path.dirname(os.path.realpath(__file__))
     libdir = os.path.join(dir, '..', 'lib')
     dependencies = gather_deps(libdir)
-    print bootstrap(dependencies, dir)
+    print(bootstrap(dependencies, dir))
