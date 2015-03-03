@@ -41,7 +41,7 @@ class TestAddIntervention(TestBrokerCommand):
                    "--allowusers=njw",
                    "--comments=testing"]
         out = self.badrequesttest(command)
-        self.matchoutput(out, "the expiry value 'long long ago' "
+        self.matchoutput(out, "The expiry value 'long long ago' "
                          "could not be interpreted", command)
 
         command = ["add_intervention", "--intervention=i1",
@@ -52,7 +52,7 @@ class TestAddIntervention(TestBrokerCommand):
                    "--allowusers=njw",
                    "--comments=testing"]
         out = self.badrequesttest(command)
-        self.matchoutput(out, "the start time 'long long ago' "
+        self.matchoutput(out, "The start time 'long long ago' "
                          "could not be interpreted", command)
 
         too_late = datetime.utcnow().replace(microsecond=0) + timedelta(days=2)
@@ -65,7 +65,7 @@ class TestAddIntervention(TestBrokerCommand):
                    "--allowusers=njw",
                    "--comments=testing"]
         out = self.badrequesttest(command)
-        self.matchoutput(out, "the start time is later than the expiry time",
+        self.matchoutput(out, "The start time is later than the expiry time",
                          command)
 
     def test_05_add_basic_intervention(self):
