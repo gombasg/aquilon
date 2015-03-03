@@ -92,8 +92,8 @@ class DnsDomain(Base):
             raise ArgumentError('The DNS domain name is too long.')
 
         parts = name.split('.')
-        if len(parts) < 2:
-            raise ArgumentError('Top-level DNS domains cannot be added.')
+        #if len(parts) < 2:
+        #    raise ArgumentError('Top-level DNS domains cannot be added.')
         # The limit of max. 127 parts mentioned at various documents about DNS
         # follows from the other checks above and below
         for part in parts:
